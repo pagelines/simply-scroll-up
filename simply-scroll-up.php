@@ -42,7 +42,7 @@ class Back_To_Top {
                 'z-index' => (int) pl_setting('back-to-top-zindex', array('default' => 100)),
                 'background-color' => pl_hashify(pl_setting('back-to-top-background-color', array('default' => '#555555'))),
                 'background-hover-color' => pl_hashify(pl_setting('back-to-top-background-hover-color', array('default' => '#cccccc'))),
-                'text-color' => pl_hashify(pl_setting('back-to-top-text-color', array('default' => '#FFFFFF'))),                
+                'text-color' => pl_hashify(pl_setting('back-to-top-text-color', array('default' => '#333333'))),                
             ),
 			'images-top' => array(
                 'imge-url' => pl_setting('page_background_image_url_back_top', array('default' => 'none'))
@@ -118,12 +118,12 @@ class Back_To_Top {
         $style = pl_setting('back-to-top-style', array('default' => 'link'));
         $zindex = (int) pl_setting('back-to-top-zindex', array('default' => 50));
         wp_enqueue_script('jquery-scrollup', plugin_dir_url(__FILE__) . 'js/jquery.scrollup.js', array('jquery'), NULL, true);
-        wp_enqueue_script('back-to-top', plugin_dir_url(__FILE__) . 'js/back-to-top.js', array('jquery', 'jquery-scrollup'), NULL, true);
+        // wp_enqueue_script('back-to-top', plugin_dir_url(__FILE__) . 'js/back-to-top.js', array('jquery', 'jquery-scrollup'), NULL, true);
 		
-		 wp_enqueue_script('pl-back-to-top-custom1', plugin_dir_url(__FILE__) . 'js/simply-scroll-up.js', array( 'jquery' ), pl_get_cache_key() , true);
+		wp_enqueue_script('pl-back-to-top-custom1', plugin_dir_url(__FILE__) . 'js/simply-scroll-up.js', array( 'jquery', 'jquery-scrollup'), pl_get_cache_key() , true);
 		
-        wp_localize_script('back-to-top', 'pagelines_scroll_up', array(
-            'text' => ($text) ? $text : __('Simply Scroll Up', 'back-to-top'),
+        wp_localize_script('pl-back-to-top-custom1', 'pagelines_scroll_up', array(
+            'text' => ($text) ? $text : __('Simply Scroll Up', 'simply-scroll-up'),
             'style' => $style,
             'zIndex' => $zindex
         ));
@@ -282,7 +282,7 @@ class Back_To_Top {
                         'key' => 'back-to-top-text-color',
                         'type' => 'color',
                         'label' => __('Text color', 'back-to-top'),
-                        'default' => '#FFFFFF'
+                        'default' => '#333333'
                     )
 					
 				)
